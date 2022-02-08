@@ -1,6 +1,4 @@
 import { View, Pressable, Text, ScrollView, Dimensions } from 'react-native';
-import { useRecoilState } from 'recoil';
-import { listState } from '../store/store';
 import { COLORS } from '../constants'
 import listData from '../data'
 import ItemCard from './ItemCard';
@@ -10,7 +8,7 @@ const WIDTH = Dimensions.get('window').width;
 function ItemList({ setTab }) {
     return (
         <View>
-            <ScrollView style={{ width: WIDTH, padding: 10 }}>
+            <ScrollView style={{ width: WIDTH, padding: 10, marginTop: 10 }}>
             { 
                 listData && listData.map((item, index) => {
                     return <ItemCard key={index} item={item} />;

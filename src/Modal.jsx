@@ -1,11 +1,16 @@
 import { useCallback } from 'react';
 import { View, Pressable, Text, Modal } from 'react-native';
+import { useSetRecoilState } from 'recoil';
+import { listState } from '../store/store';
 import { COLORS } from '../constants'
 
-function CustomModal({ item, visible }){
+function CustomModal({ item, visible, setModalVisible }){
+    
+    const setList = useSetRecoilState(listState);
 
-    const onClickOption = useCallback(() => {
-
+    const onClickOption = useCallback((label) => {
+        setList((oldList) => [...oldList, { name: item.name, qty: label }]);
+        setModalVisible(false);
     }, []);
 
     return (
@@ -16,32 +21,35 @@ function CustomModal({ item, visible }){
         >
             <View>
                 {
-                    item.labels && item.labels.map((_item, index) => {
+                    item.labels && item.labels.map((label, index) => {
                         return (
                             <Pressable key={index} style={{
                                 backgroundColor: COLORS.backgroundColor,
+                                height: 50,
                                 padding: 5,
                                 margin: 5,
                                 alignItems: 'center',
                                 justifyContent: 'center'
-                            }} onPress={onClickOption}>
+                            }} onPress={() => onClickOption(label)}>
                                 <View>
-                                    <Text style={{fontSize: 20, fontWeight: '700'}}>{_item}</Text>
+                                    <Text style={{ fontSize: 20, fontWeight: '700', color: COLORS.TextColor }}>{label}</Text>
                                 </View>
                             </Pressable>
                         )
                     })
                 }
                 <View>
-                    <View style={{
-                        height: 100,
+                    <Pressable onPress={() => setModalVisible(false)} style={{
+                        height: 50,
                         width: 100,
+                        padding: 5,
+                        margin: 5,
                         justifyContent: 'center',
                         alignItems: 'center',
                         backgroundColor: COLORS.TextColorLight
                     }}>
                         <Text>Close</Text>
-                    </View>
+                    </Pressable>
                 </View>
             </View>
         </Modal>

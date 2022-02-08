@@ -39,13 +39,13 @@ const Data = [
     },
     {
         id: 7,
-        name: "Mountain Dew",
+        name: "Dew",
         image: atta,
         labels: [ "1 KG" , "2 KG", "5 KG", "10 KG"]
     },
     {
         id: 8,
-        name: "Dr Pepper",
+        name: "Pepper",
         image: atta,
         labels: [ "1 KG" , "2 KG", "5 KG", "10 KG"]
     },
@@ -57,7 +57,7 @@ const Data = [
     },
     {
         id: 10,
-        name: "Coca Cola",
+        name: "Cocoa",
         image: atta,
         labels: [ "1 KG" , "2 KG", "5 KG", "10 KG"]
     },

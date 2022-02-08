@@ -13,7 +13,7 @@ function ItemCard(props){
             borderWidth: 0.4,
             borderRadius: 5,
             borderColor: COLORS.borderColor,
-            margin: 5,
+            marginBottom: 10,
             padding: 5
         }}> 
             <View>
@@ -37,21 +37,21 @@ function ItemCard(props){
                 justifyContent: 'space-around',
                 width: 120
             }}>
-                <Text style={{ fontSize: 20, fontWeight: '700', textAlign: 'center', color: COLORS.TextColorDark }}>{props.item.name?.toUpperCase()}</Text>
+                <Text style={{ fontSize: 25, fontWeight: '700', textAlign: 'center', color: COLORS.TextColorDark }}>{props.item.name?.toUpperCase()}</Text>
                 <Pressable style={{
                     backgroundColor: COLORS.backgroundColor,
                     borderRadius: 5,
                     padding: 10
                 }} onPress={() => setModalVisible(true)} >
                     <Text style={{ 
-                        fontSize: 20, 
+                        fontSize: 25, 
                         color: COLORS.TextColor, 
                         textAlign: 'center', 
                         fontWeight: '700' 
                     }}>ADD</Text>
                 </Pressable>
             </View>
-            <Modal visible={modalVisible} item={props.item} />
+            <Modal visible={modalVisible} item={props.item} setModalVisible={setModalVisible} />
         </View>
     )
 }
