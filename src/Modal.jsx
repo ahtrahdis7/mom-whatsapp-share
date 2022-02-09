@@ -32,7 +32,11 @@ function CustomModal({ item, visible, setModalVisible }){
                                 justifyContent: 'center'
                             }} onPress={() => onClickOption(label)}>
                                 <View>
-                                    <Text style={{ fontSize: 20, fontWeight: '700', color: COLORS.TextColor }}>{label}</Text>
+                                    <Text style={{ 
+                                        fontSize: 20, 
+                                        fontWeight: '700', 
+                                        color: COLORS.TextColor 
+                                    }}>{label}</Text>
                                 </View>
                             </Pressable>
                         )
@@ -41,14 +45,19 @@ function CustomModal({ item, visible, setModalVisible }){
                 <View>
                     <Pressable onPress={() => setModalVisible(false)} style={{
                         height: 50,
-                        width: 100,
+                        // width: 100,
                         padding: 5,
                         margin: 5,
+                        marginTop: 40,
                         justifyContent: 'center',
                         alignItems: 'center',
-                        backgroundColor: COLORS.TextColorLight
+                        backgroundColor: "#df4759"
                     }}>
-                        <Text>Close</Text>
+                        <Text style={{ 
+                            fontSize: 20, 
+                            fontWeight: '700', 
+                            color: COLORS.TextColor 
+                        }}>CLOSE</Text>
                     </Pressable>
                 </View>
             </View>

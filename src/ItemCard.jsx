@@ -1,54 +1,20 @@
 import { useState } from 'react';
-import { View, Pressable, Text, Image } from 'react-native';
+import { View, Pressable, Text, Image, StyleSheet } from 'react-native';
 import { COLORS } from '../constants';
 import Modal from './Modal';
 
 function ItemCard(props){
     const [modalVisible, setModalVisible] = useState(false)
     return (
-        <View style={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            borderWidth: 0.4,
-            borderRadius: 5,
-            borderColor: COLORS.borderColor,
-            marginBottom: 10,
-            padding: 5
-        }}> 
+        <View style={styles.container}> 
             <View>
-                <View style={{
-                    // height: 100, 
-                    // width: 100, 
-                    // backgroundColor: 'grey', 
-                    alignItems: 'center', 
-                    justifyContent: 'center',
-                    borderRadius: 5
-                }}>
-                    <Image style={{
-                        height: 100, 
-                        width: 100,
-                    }} source={props.item.image} />
+                <View style={styles.imageContainer}>
+                    <Image style={styles.image} source={props.item.image} />
                 </View>
             </View>
-            <View style={{
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'space-around',
-                width: 120
-            }}>
-                <Text style={{ fontSize: 25, fontWeight: '700', textAlign: 'center', color: COLORS.TextColorDark }}>{props.item.name?.toUpperCase()}</Text>
-                <Pressable style={{
-                    backgroundColor: COLORS.backgroundColor,
-                    borderRadius: 5,
-                    padding: 10
-                }} onPress={() => setModalVisible(true)} >
-                    <Text style={{ 
-                        fontSize: 25, 
-                        color: COLORS.TextColor, 
-                        textAlign: 'center', 
-                        fontWeight: '700' 
-                    }}>ADD</Text>
+            <View style={styles.actionsContainer}>
+                <Pressable style={styles.addButton} onPress={() => setModalVisible(true)} >
+                    <Text style={styles.itemNameText}>+ {" " + props.item.name?.toUpperCase()}</Text>
                 </Pressable>
             </View>
             <Modal visible={modalVisible} item={props.item} setModalVisible={setModalVisible} />
@@ -57,3 +23,39 @@ function ItemCard(props){
 }
 
 export default ItemCard;
+
+const styles = StyleSheet.create({
+    container: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        borderRadius: 5,
+        borderColor: COLORS.borderColor,
+        marginBottom: 10,
+        padding: 5,
+    }, imageContainer: {
+        alignItems: 'center', 
+        justifyContent: 'center',
+        borderRadius: 5
+    }, image: {
+        height: 80, 
+        width: 80,
+    }, actionsContainer: {
+        justifyContent: 'center',
+        alignItems: 'flex-start',
+        width: 150
+    }, addButton: {
+        borderRadius: 5,
+        padding: 10
+    }, addText: { 
+        fontSize: 25, 
+        color: COLORS.TextColor, 
+        textAlign: 'center', 
+        fontWeight: '700' 
+    }, itemNameText: { 
+        fontSize: 25, 
+        fontWeight: '700', 
+        textAlign: 'center', 
+        color: COLORS.backgroundColor 
+    }
+})

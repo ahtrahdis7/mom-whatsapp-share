@@ -1,4 +1,4 @@
-import { View, Pressable, Text, ScrollView, Dimensions, Linking } from 'react-native';
+import { View, Pressable, Text, ScrollView, Dimensions, Linking, StyleSheet } from 'react-native';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { listState } from '../store/store';
 import { COLORS } from '../constants'
@@ -11,12 +11,12 @@ function Checkout({ setTab }) {
     const setList = useSetRecoilState(listState);
 
     const objectListToText = () => {
-        let text = list.map(item => `${item.name}: ${item.qty}\n`)
-        return text;
+        let text = list.map(item => `${item.name}: ${item.qty}`)
+        return text.join('\n');
     }
 
     const sendToWhatsApp = useCallback(() => {
-        let url = `whatsapp://send?text=${objectListToText()}&phone=91=${7377084314}`;
+        let url = `whatsapp://send?text=${objectListToText()}&phone=91=${7789025800}`;
         Linking.openURL(url)
         .then(data => {
             console.log("WhatsApp Opened successfully " + data);  //<---Success
@@ -26,72 +26,35 @@ function Checkout({ setTab }) {
             alert("Make sure WhatsApp installed on your device");  //<---Error
         });
     })
-
-    useEffect(() => {
-        console.log(list)
-    }, [list]);
     return (
         <View>
             <ScrollView style={{ width: WIDTH, padding: 10, marginTop: 50 }}>
-            { 
-                list && list.map((item, index) => {
-                    return (
-                        <View style={{
-                            display: 'flex',
-                            flexDirection: 'row',
-                            justifyContent: 'space-between',
-                            marginHorizontal: 50,
-                            margin: 2,
-                            padding: 2,
-                        }} key={index}>
-                            <Text style={{ fontSize: 30, fontWeight: '700', color: COLORS.backgroundColor }} >{item.name}</Text>
-                            <Text style={{ fontSize: 30, fontWeight: '700', color: COLORS.backgroundColor }} >{item.qty}</Text>
-                        </View>
-                    )
-                })
-            }
-            {
-                list.length === 0 && <Text style={{ fontSize: 30, fontWeight: '700', color: COLORS.backgroundColor }}> Nothing is here...</Text>
-            }
+                { 
+                    list && list.map((item, index) => {
+                        return (
+                            <View style={styles.listItemsCard} key={index}>
+                                <Text style={styles.listItemsText} >{item.name}</Text>
+                                <Text style={styles.listItemsText} >{item.qty}</Text>
+                            </View>
+                        )
+                    })
+                }
+                {
+                    list.length === 0 && <Text style={styles.listItemsText}> Nothing is here...</Text>
+                }
             </ScrollView>
-            <View style={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-between'
-            }}>
+            <View style={styles.buttonsContainer}>
                 <View>
-                    <Pressable style={{
-                        backgroundColor: COLORS.backgroundColor, 
-                        height: 60,
-                        width:  WIDTH/2 - 5,
-                        borderTopRightRadius: 10,
-                        justifyContent: 'center',
-                        alignItems: 'center' ,
-                    }} onPress={() => setTab("list")}>
+                    <Pressable style={styles.backToListButton} onPress={() => setTab("list")}>
                         <View>
-                            <Text style={{
-                                color: COLORS.TextColor,
-                                fontSize: 25,
-                                fontWeight: '700'
-                            }}>{"<<< LIST"}</Text>
+                            <Text style={styles.buttonText}>{"<<< LIST"}</Text>
                         </View>
                     </Pressable>
                 </View>
                 <View>
-                    <Pressable style={{
-                        backgroundColor: COLORS.backgroundColor, 
-                        height: 60, 
-                        width:  WIDTH/2 - 5,
-                        borderTopLeftRadius: 10,
-                        justifyContent: 'center',
-                        alignItems: 'center' 
-                    }} onPress={sendToWhatsApp}>
+                    <Pressable style={styles.sendToWhatsApp} onPress={sendToWhatsApp}>
                         <View>
-                            <Text style={{
-                                color: COLORS.TextColor,
-                                fontSize: 25,
-                                fontWeight: '700'
-                            }}>{"SEND >>>"}</Text>
+                            <Text style={styles.buttonText}>{"SEND >>>"}</Text>
                         </View>
                     </Pressable>
                 </View>
@@ -101,3 +64,40 @@ function Checkout({ setTab }) {
 }
 
 export default Checkout;
+
+const styles = StyleSheet.create({
+    listItemsCard: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginHorizontal: 50,
+        margin: 2,
+        padding: 2,
+    }, listItemsText: { 
+        fontSize: 30, 
+        fontWeight: '700', 
+        color: COLORS.backgroundColor 
+    }, sendToWhatsApp: {
+        backgroundColor: COLORS.backgroundColor, 
+        height: 60, 
+        width:  WIDTH/2 - 5,
+        borderTopLeftRadius: 10,
+        justifyContent: 'center',
+        alignItems: 'center' 
+    }, buttonText: {
+        fontSize: 25, 
+        fontWeight: '700', 
+        color: COLORS.TextColor 
+    }, backToListButton: {
+        backgroundColor: COLORS.backgroundColor, 
+        height: 60,
+        width:  WIDTH/2 - 5,
+        borderTopRightRadius: 10,
+        justifyContent: 'center',
+        alignItems: 'center' ,
+    }, buttonsContainer: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    }
+})
